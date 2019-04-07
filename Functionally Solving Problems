@@ -1,38 +1,13 @@
-ghci>            foldingFunction (x:y:ys) "+" = (x + y):ys  
-ghci>            foldingFunction (x:y:ys) "-" = (y - x):ys  
-ghci>            foldingFunction xs numberString = read numberString:xs  
-ghci>
-ghci>solveRPN "10 4 3 + 2 * -"  
-*** Exception: Prelude.read: no parse
-ghci> solveRPN "2 3 +"  
-*** Exception: Prelude.read: no parse
-ghci>solveRPN "90 34 12 33 55 66 + * - +"  
-*** Exception: Prelude.read: no parse
-ghci>import Data.List  
-ghci>solveRPN = head . foldl foldingFunction [] . words  
-ghci>    where   foldingFunction (x:y:ys) "*" = (x * y):ys  
+import Data.List  
 
-<interactive>:39:5: error: parse error on input ‘where’
-ghci>            foldingFunction (x:y:ys) "+" = (x + y):ys  
-ghci>            foldingFunction (x:y:ys) "-" = (y - x):ys  
-ghci>            foldingFunction (x:y:ys) "/" = (y / x):ys  
-ghci>            foldingFunction (x:y:ys) "^" = (y ** x):ys  
-ghci>            foldingFunction (x:xs) "ln" = log x:xs  
-ghci>            foldingFunction xs "sum" = [sum xs]  
-ghci>            foldingFunction xs numberString = read numberString:xs  
-ghci> solveRPN "2.7 ln" 
-*** Exception: Prelude.read: no parse
-ghci>solveRPN "43.2425 0.5 ^"  
-*** Exception: Prelude.read: no parse
-ghci> roadStep ([], []) (head heathrowToLondon)  
-
-<interactive>:49:2: error:
-    Variable not in scope: roadStep :: ([a0], [a1]) -> t0 -> t
-
-<interactive>:49:26: error:
-    Variable not in scope: heathrowToLondon :: [t0]
-ghci>optimalPath roadSystem = 
-
-<interactive>:50:26: error:
-    parse error (possibly incorrect indentation or mismatched brackets)
+solveRPN :: String -> Float  
+solveRPN = head . foldl foldingFunction [] . words  
+    where   foldingFunction (x:y:ys) "*" = (x * y):ys  
+            foldingFunction (x:y:ys) "+" = (x + y):ys  
+            foldingFunction (x:y:ys) "-" = (y - x):ys  
+            foldingFunction (x:y:ys) "/" = (y / x):ys  
+            foldingFunction (x:y:ys) "^" = (y ** x):ys  
+            foldingFunction (x:xs) "ln" = log x:xs  
+            foldingFunction xs "sum" = [sum xs]  
+            foldingFunction xs numberString = read numberString:xs  
 
